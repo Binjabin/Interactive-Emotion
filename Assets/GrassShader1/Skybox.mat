@@ -61,15 +61,15 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SunMaskSize: 0
-    - _SunSize: 0.2
-    - _ZenithBlendPower: 0.71
+    - _SunSize: 0.1
+    - _ZenithBlendPower: 1
     m_Colors:
     - _Animation_Speed: {r: 0.005, g: 0.005, b: 0, a: 0}
     - _CloudColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 0}
     - _CloudScale: {r: 0.08, g: 0.08, b: 0, a: 0}
-    - _Horizon: {r: 1, g: 0.65441906, b: 0.3160377, a: 0}
-    - _Nadir: {r: 0.06251621, g: 0.34488443, b: 0.14508279, a: 0}
-    - _SunColor: {r: 1, g: 0.8377757, b: 0.2783019, a: 0}
+    - _Horizon: {r: 0.23529412, g: 0.47058824, b: 0.7058824, a: 1}
+    - _Nadir: {r: 0.23529412, g: 0.47058824, b: 0.7058824, a: 1}
+    - _SunColor: {r: 1, g: 1, b: 1, a: 1}
     - _SunDirecrtion: {r: 0.5, g: 0.5, b: -0.5, a: 0}
-    - _Zenith: {r: 1, g: 0.91263694, b: 0.3915094, a: 0}
+    - _Zenith: {r: 0.23529412, g: 0.47058824, b: 0.7058824, a: 1}
   m_BuildTextureStacks: []
