@@ -6,11 +6,18 @@ public class InteractibleItem : MonoBehaviour
 {
     public float interactionRange = 2f;
     [SerializeField] GameObject cam;
+    [SerializeField] InteractibleItem item;
+    [SerializeField] QuestTracker quest;
+    [SerializeField] PlayerInventory inventory;
+    [SerializeField] bool isApple;
+    [SerializeField] bool isRubbish;
+    float appleCount;
 
     // Update is called once per frame
     void Start()
     {
         cam = GameObject.FindWithTag("Camera");
+        item = GetComponent<InteractibleItem>();
     }
     void Update()
     {
@@ -18,9 +25,19 @@ public class InteractibleItem : MonoBehaviour
         {
            if(Input.GetKeyDown(KeyCode.E))
            {
-               Destroy(gameObject);
+               inventory.AddItem(item);
+               gameObject.SetActive(false);
+               if(isApple)
+               {
+                   quest.GainApple();
+               }
+               if(isRubbish)
+               {
+                   quest.CleanTrash();
+               }
            }
             
         }
+
     }
 }
