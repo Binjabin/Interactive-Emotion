@@ -56,6 +56,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] AudioSource stepSound;
 
+    [SerializeField] bool glider = true;
+    bool gliding;
+    [SerializeField] float gliderFallSpeed;
+    [SerializeField] float glideSpeed;
+    [SerializeField] float glideAcceleration;
+
     // Start is called before the first frame update
 
     void OnValidate()
@@ -69,6 +75,7 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         OnValidate();
         stepSound = GetComponent<AudioSource>();
+        gliding = false;
     }
 
 
@@ -92,9 +99,11 @@ public class PlayerController : MonoBehaviour
 			gravityRight = ProjectDirectionOnPlane(Vector3.right, gravityUp);
 			gravityForward = ProjectDirectionOnPlane(Vector3.forward, gravityUp);
 		}
-		desiredVelocity = new Vector3(inputDirection.x, 0f, inputDirection.z) * moveSpeed;
+        float situationSpeed = gliding ? glideSpeed : moveSpeed;
+		desiredVelocity = new Vector3(inputDirection.x, 0f, inputDirection.z) * situationSpeed;
 
         desiredJump |= Input.GetButtonDown("Jump");
+
 
     }
 
@@ -121,6 +130,19 @@ public class PlayerController : MonoBehaviour
             desiredJump = false;
             Jump();
         }
+        if(Input.GetButton("Jump") && rigidbody.velocity.y < -0.01 && glider && !OnGround)
+        {
+            gliding = true;
+        }
+        else
+        {
+            gliding = false;
+        }
+        if(gliding)
+        {
+            currentVelocity = new Vector3(currentVelocity.x, -gliderFallSpeed, currentVelocity.z);
+        }
+
         rigidbody.velocity = currentVelocity;
         ClearState();
     }
@@ -133,6 +155,7 @@ public class PlayerController : MonoBehaviour
         if(OnGround)
         {
             jumpDirection = contactNormal;
+            gliding = false;
         }
         else if(OnSteep)
         {
@@ -149,10 +172,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            
             return;
         }
-
         jumpPhase += 1;
         if(stepsSinceLastJump > 1)
         {
@@ -241,6 +262,7 @@ public class PlayerController : MonoBehaviour
 
         
         float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
+        acceleration = gliding ? glideAcceleration : acceleration;
         float maxSpeedChange = acceleration * Time.deltaTime;
 
         float newX = Mathf.MoveTowards(currentX, desiredVelocity.x, maxSpeedChange);
