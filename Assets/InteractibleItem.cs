@@ -11,7 +11,9 @@ public class InteractibleItem : MonoBehaviour
     [SerializeField] PlayerInventory inventory;
     [SerializeField] bool isApple;
     [SerializeField] bool isRubbish;
+    [SerializeField] bool isNPC;
     float appleCount;
+    bool inConveration;
 
     // Update is called once per frame
     void Start()
@@ -25,19 +27,40 @@ public class InteractibleItem : MonoBehaviour
         {
            if(Input.GetKeyDown(KeyCode.E))
            {
-               inventory.AddItem(item);
-               gameObject.SetActive(false);
-               if(isApple)
+               if(isNPC)
                {
-                   quest.GainApple();
+                    if(inConveration)
+                    {
+                        FindObjectOfType<DialogueSystem>().DisplayNextSentence();
+                    }
+                    else
+                    {
+                        inConveration = true;
+                        FindObjectOfType<DialogueSystem>().StartDialogue(GetComponent<Dialogue>());
+                    }
+                   
                }
-               if(isRubbish)
+               else
                {
-                   quest.CleanTrash();
+                    inventory.AddItem(item);
+                    gameObject.SetActive(false);
+                    if(isApple)
+                    {
+                        quest.GainApple();
+                    }
+                    if(isRubbish)
+                    {
+                        quest.CleanTrash();
+                    }
                }
+
            }
             
         }
 
+    }
+    public void EndDialogue()
+    {
+        inConveration = false;
     }
 }
