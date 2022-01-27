@@ -22,7 +22,7 @@ public class Billboard : MonoBehaviour
         cam = GameObject.FindWithTag("Camera");
         scaleValue = 1f;
         attatchedItem = transform.parent.gameObject;
-        visibleDistance = attatchedItem.GetComponent<InteractibleItem>().interactionRange;
+        visibleDistance = attatchedItem.GetComponent<Interactible>().interactionRange;
     }
     void LateUpdate()
     {
