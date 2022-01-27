@@ -9,7 +9,7 @@ public class DialogueSystem : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     private Dialogue currentDialogue;
-    private InteractibleItem currentNPC;
+    private Interactible currentNPC;
 
     public Queue<string> sentences;
     // Start is called before the first frame update
@@ -24,7 +24,7 @@ public class DialogueSystem : MonoBehaviour
         nameText.text = dialogue.name;
         sentences.Clear();
         currentDialogue = dialogue;
-        currentNPC = dialogue.gameObject.GetComponent<InteractibleItem>();
+        currentNPC = dialogue.gameObject.GetComponent<Interactible>();
 
         foreach(string sentence in dialogue.sentences)
         {
@@ -59,6 +59,6 @@ public class DialogueSystem : MonoBehaviour
 
     void EndDialogue()
     {
-        currentNPC.EndDialogue();
+        //currentNPC.EndDialogue();
     }
 }
