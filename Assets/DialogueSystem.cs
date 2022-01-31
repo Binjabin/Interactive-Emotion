@@ -8,14 +8,30 @@ public class DialogueSystem : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    [SerializeField] GameObject dialogueUI;
+    [SerializeField] GameObject otherUI;
     private Dialogue currentDialogue;
     private Interactible currentNPC;
+    public bool inDialogue = false;
 
     public Queue<string> sentences;
     // Start is called before the first frame update
     void Start()
     {
         sentences = new Queue<string>();
+    }
+
+    void LateUpdate()
+    {
+        dialogueUI.SetActive(inDialogue);
+        otherUI.SetActive(!inDialogue);
+        if(inDialogue)
+        {
+            if(Input.GetButtonDown("Jump"))
+            {
+                DisplayNextSentence();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -25,8 +41,10 @@ public class DialogueSystem : MonoBehaviour
         sentences.Clear();
         currentDialogue = dialogue;
         currentNPC = dialogue.gameObject.GetComponent<Interactible>();
+        inDialogue = true;
+        FindObjectOfType<PlayerLook>().Focus(dialogue.transform);
 
-        foreach(string sentence in dialogue.sentences)
+        foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -52,13 +70,13 @@ public class DialogueSystem : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(0.03f);
             yield return null;
         }
     }
 
     void EndDialogue()
     {
-        //currentNPC.EndDialogue();
+        inDialogue = false;
+        FindObjectOfType<PlayerLook>().Unfocus();
     }
 }

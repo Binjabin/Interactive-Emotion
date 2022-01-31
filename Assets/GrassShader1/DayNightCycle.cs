@@ -5,7 +5,7 @@ using UnityEngine;
 public class DayNightCycle : MonoBehaviour
 {
     [Range(0.0f, 1.0f)] public float time;
-    [SerializeField] float fullDayLength;
+    public float fullDayLength;
     [SerializeField] float startTime = 0.0f;
     float timeRate;
     [SerializeField] Vector3 noon;

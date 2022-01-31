@@ -15,6 +15,8 @@ public class PlayerLook : MonoBehaviour
     private Vector2 lastInputEvent;
     private float inputLagTimer;
 
+    bool isFocused = false;
+    GameObject currentFocus;
 
     private float ClampVerticalAngle(float angle)
     {
@@ -36,13 +38,40 @@ public class PlayerLook : MonoBehaviour
 
     private void Update()
     {
-        Vector2 wantedVelocity = GetInput() * sensitivity; 
-        velocity = new Vector2(Mathf.MoveTowards(velocity.x, wantedVelocity.x, acceleration.x * Time.deltaTime), Mathf.MoveTowards(velocity.y, wantedVelocity.y, acceleration.y * Time.deltaTime));
-        rotation += velocity * Time.deltaTime;
-        rotation.y = ClampVerticalAngle(rotation.y);
-        transform.localEulerAngles = new Vector3(rotation.y, rotation.x, 0); 
+        Vector2 wantedVelocity;
+        if (!isFocused)
+        {
+            wantedVelocity = GetInput() * sensitivity;
+            velocity = new Vector2(Mathf.MoveTowards(velocity.x, wantedVelocity.x, acceleration.x * Time.deltaTime), Mathf.MoveTowards(velocity.y, wantedVelocity.y, acceleration.y * Time.deltaTime));
+            rotation += velocity * Time.deltaTime;
+            rotation.y = ClampVerticalAngle(rotation.y);
+            transform.localEulerAngles = new Vector3(rotation.y, rotation.x, 0);
+        }
+        else
+        {
+            Quaternion targetRotation = Quaternion.LookRotation((currentFocus.transform.position - transform.position).normalized);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 20);
+            rotation = new Vector2(targetRotation.eulerAngles.y, targetRotation.eulerAngles.x);
+            wantedVelocity = Vector2.zero;
+            velocity = Vector2.zero;
+        }
+        
     }
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
+    public void Focus(Transform focus)
+    {
+        isFocused = true;
+        currentFocus = focus.gameObject;
+    }
+    public void Unfocus()
+    {
+        isFocused = false;
+        currentFocus = null;
+    }
     
 }

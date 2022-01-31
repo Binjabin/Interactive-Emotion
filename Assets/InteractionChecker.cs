@@ -19,7 +19,7 @@ public class InteractionChecker : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Mathf.Infinity, layerMask))
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 5f, layerMask))
         {
             if(Input.GetKeyDown(KeyCode.E))
             {

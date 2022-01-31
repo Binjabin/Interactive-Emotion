@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float gliderFallSpeed;
     [SerializeField] float glideSpeed;
     [SerializeField] float glideAcceleration;
-
+    bool movementEnabled;
     // Start is called before the first frame update
 
     void OnValidate()
@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviour
         zInput = Input.GetAxisRaw("Vertical");
         inputDirection = new Vector3(xInput, 0, zInput).normalized;
         gravityUp = Vector3.up;
-
 
         if (playerInputSpace) 
         {
@@ -124,26 +123,36 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         UpdateState();
-        AdjustVelocity();
-        if (desiredJump)
+        
+        if(movementEnabled)
         {
-            desiredJump = false;
-            Jump();
-        }
-        if(Input.GetButton("Jump") && rigidbody.velocity.y < -0.01 && glider && !OnGround)
-        {
-            gliding = true;
+            AdjustVelocity();
+            if (desiredJump)
+            {
+                desiredJump = false;
+                Jump();
+            }
+            if (Input.GetButton("Jump") && rigidbody.velocity.y < -0.01 && glider && !OnGround)
+            {
+                gliding = true;
+            }
+            else
+            {
+                gliding = false;
+            }
+            if (gliding)
+            {
+                currentVelocity = new Vector3(currentVelocity.x, -gliderFallSpeed, currentVelocity.z);
+            }
         }
         else
         {
-            gliding = false;
+            currentVelocity = new Vector3(0f, currentVelocity.y, 0f);
+            desiredJump = false;
         }
-        if(gliding)
-        {
-            currentVelocity = new Vector3(currentVelocity.x, -gliderFallSpeed, currentVelocity.z);
-        }
-
         rigidbody.velocity = currentVelocity;
+        movementEnabled = !FindObjectOfType<DialogueSystem>().inDialogue;
+
         ClearState();
     }
 
