@@ -28,6 +28,9 @@ public class DayNightCycle : MonoBehaviour
     [Header("Sky")]
     [SerializeField] Gradient horizonColor;
     [SerializeField] Gradient skyColor;
+    [SerializeField] AnimationCurve cloudOpacity;
+    [SerializeField] AnimationCurve starOpacity;
+
 
     // Start is called before the first frame update
     void Start()
@@ -41,11 +44,14 @@ public class DayNightCycle : MonoBehaviour
     {
         //time loop
         time += timeRate * Time.deltaTime;
-        if(time >= 1.0f){time = 0.0f;}
+        if(time >= 1.0f)
+        {
+            Debug.Log("End Of Day");
+        }
 
         //set rotation;
-        sun.transform.eulerAngles = (time - 0.25f) * noon * 4.0f;
-        moon.transform.eulerAngles = (time - 0.75f) * noon * 4.0f;
+        sun.transform.eulerAngles = (time) * noon * 2.0f;
+        moon.transform.eulerAngles = (time) * noon * 2.0f;
 
         //light intensity;
         sun.intensity = sunIntensity.Evaluate(time);
@@ -57,9 +63,12 @@ public class DayNightCycle : MonoBehaviour
         skyboxMaterial.SetColor("_Horizon", horizonColor.Evaluate(time));
         skyboxMaterial.SetColor("_Nadir", horizonColor.Evaluate(time));
         skyboxMaterial.SetColor("_Zenith", skyColor.Evaluate(time));
+        skyboxMaterial.SetFloat("_CloudOpacity", cloudOpacity.Evaluate(time));
+        skyboxMaterial.SetFloat("_StarOpacity", starOpacity.Evaluate(time));
         moon.color = moonColor.Evaluate(time);
 
         RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
         RenderSettings.reflectionIntensity = reflectionsIntensityMultiplier.Evaluate(time);
+        Shader.SetGlobalVector("_SunDirection", transform.forward);
     }
 }
