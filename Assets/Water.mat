@@ -27,11 +27,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: ca0d6684d25dcda4f9cec5b2bb7c18ef, type: 3}
         m_Scale: {x: 100, y: 100}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _DepthMaxDistance: 1
-    - _FoamMaxDistance: 5
-    - _FoamMinDistance: 0.001
+    - _FoamMaxDistance: 2
+    - _FoamMinDistance: 0.5
     - _SurfaceDistortionAmount: 0.75
     - _SurfaceNoiseCutoff: 0.75
     m_Colors:
