@@ -30,6 +30,12 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] Gradient skyColor;
     [SerializeField] AnimationCurve cloudOpacity;
     [SerializeField] AnimationCurve starOpacity;
+    [SerializeField] Color cloudColor;
+
+    public bool isStormy;
+    [SerializeField] Color stormSkyColor;
+    [SerializeField] Color stormCloudColor;
+
 
 
     // Start is called before the first frame update
@@ -49,26 +55,46 @@ public class DayNightCycle : MonoBehaviour
             Debug.Log("End Of Day");
         }
 
-        //set rotation;
-        sun.transform.eulerAngles = (time) * noon * 2.0f;
+        sun.transform.eulerAngles = new Vector3(210f * time - 20, 0f, 0f);
         moon.transform.eulerAngles = (time) * noon * 2.0f;
 
-        //light intensity;
-        sun.intensity = sunIntensity.Evaluate(time);
-        moon.intensity = moonIntensity.Evaluate(time);
+        if(!isStormy)
+        {
+            //set rotation;
+            
 
-        //color;
-        sun.color = sunColor.Evaluate(time);
-        skyboxMaterial.SetColor("_SunColor", sunColor.Evaluate(time));
-        skyboxMaterial.SetColor("_Horizon", horizonColor.Evaluate(time));
-        skyboxMaterial.SetColor("_Nadir", horizonColor.Evaluate(time));
-        skyboxMaterial.SetColor("_Zenith", skyColor.Evaluate(time));
-        skyboxMaterial.SetFloat("_CloudOpacity", cloudOpacity.Evaluate(time));
-        skyboxMaterial.SetFloat("_StarOpacity", starOpacity.Evaluate(time));
-        moon.color = moonColor.Evaluate(time);
+            //light intensity;
+            sun.intensity = sunIntensity.Evaluate(time);
+            moon.intensity = moonIntensity.Evaluate(time);
+            sun.color = sunColor.Evaluate(time);
 
-        RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
-        RenderSettings.reflectionIntensity = reflectionsIntensityMultiplier.Evaluate(time);
-        Shader.SetGlobalVector("_SunDirection", transform.forward);
+            //color;
+            
+            skyboxMaterial.SetColor("_SunColor", sunColor.Evaluate(time));
+            skyboxMaterial.SetColor("_Horizon", horizonColor.Evaluate(time));
+            skyboxMaterial.SetColor("_Nadir", horizonColor.Evaluate(time));
+            skyboxMaterial.SetColor("_Zenith", skyColor.Evaluate(time));
+            skyboxMaterial.SetFloat("_CloudOpacity", cloudOpacity.Evaluate(time));
+            skyboxMaterial.SetFloat("_StarOpacity", starOpacity.Evaluate(time));
+            skyboxMaterial.SetFloat("_CloudColorIntensity", 1f);
+            moon.color = moonColor.Evaluate(time);
+            skyboxMaterial.SetColor("_CloudColor", cloudColor);
+
+            RenderSettings.ambientIntensity = lightingIntensityMultiplier.Evaluate(time);
+            RenderSettings.reflectionIntensity = reflectionsIntensityMultiplier.Evaluate(time);
+            Shader.SetGlobalVector("_SunDirection", transform.forward);
+        }
+        else
+        {
+            skyboxMaterial.SetColor("_SunColor", stormSkyColor);
+            sun.intensity = 0.2f;
+            skyboxMaterial.SetColor("_Horizon", stormSkyColor);
+            skyboxMaterial.SetColor("_Nadir", stormSkyColor);
+            skyboxMaterial.SetColor("_Zenith", stormSkyColor);
+            skyboxMaterial.SetFloat("_CloudOpacity", 1f);
+            skyboxMaterial.SetFloat("_CloudColorIntensity", 10f);
+            skyboxMaterial.SetColor("_CloudColor", stormCloudColor);
+        }
+        
     }
 }
