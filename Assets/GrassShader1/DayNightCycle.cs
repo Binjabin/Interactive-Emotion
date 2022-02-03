@@ -38,15 +38,16 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] GameObject rainEffect;
     float timeSinceLastChange;
 
-
+    float changeTime;
 
     // Start is called before the first frame update
     void Start()
     {
         timeRate = 1.0f / fullDayLength;
         time = startTime;
-        timeSinceLastChange = 1.1f;
+        timeSinceLastChange = 0.251f;
         isStormy = false;
+        changeTime = Random.Range(30f, 150f);
 
         skyboxMaterial.SetColor("_SunColor",  skyColor.Evaluate(0f));
         sun.intensity = 0.3f;
@@ -66,6 +67,8 @@ public class DayNightCycle : MonoBehaviour
         if(time >= 1.0f)
         {
             Debug.Log("End Of Day");
+            Ending();
+            
         }
 
         sun.transform.eulerAngles = new Vector3(210f * time - 20, 0f, 0f);
@@ -85,10 +88,10 @@ public class DayNightCycle : MonoBehaviour
 
             //color;
             
-            if(timeSinceLastChange < 0.251f)
+            if(timeSinceLastChange < 0.250001f)
             {
-                skyboxMaterial.SetColor("_SunColor",  Color.Lerp(stormSkyColor, skyColor.Evaluate(time),  timeSinceLastChange * 4));
-                sun.intensity = Mathf.Lerp(1f, 0.3f, timeSinceLastChange * 4);
+                skyboxMaterial.SetColor("_SunColor",  Color.Lerp( stormSkyColor, sunColor.Evaluate(time), timeSinceLastChange * 4));
+                sun.intensity = Mathf.Lerp(0.3f, sunIntensity.Evaluate(time), timeSinceLastChange * 4);
                 skyboxMaterial.SetColor("_Horizon", Color.Lerp(stormSkyColor, horizonColor.Evaluate(time),  timeSinceLastChange * 4));
                 skyboxMaterial.SetColor("_Nadir", Color.Lerp(stormSkyColor, horizonColor.Evaluate(time),  timeSinceLastChange * 4));
                 skyboxMaterial.SetColor("_Zenith", Color.Lerp(stormSkyColor, skyColor.Evaluate(time),  timeSinceLastChange * 4));
@@ -97,40 +100,42 @@ public class DayNightCycle : MonoBehaviour
                 skyboxMaterial.SetFloat("_CloudColorIntensity", Mathf.Lerp(10f, 1f,  timeSinceLastChange * 4));
                 skyboxMaterial.SetColor("_CloudColor", Color.Lerp(stormCloudColor, cloudColor, timeSinceLastChange * 4));
             }
+            else
+            {
+                skyboxMaterial.SetColor("_SunColor", sunColor.Evaluate(time));
+                sun.intensity = sunIntensity.Evaluate(time);
+                skyboxMaterial.SetColor("_Horizon", horizonColor.Evaluate(time));
+                skyboxMaterial.SetColor("_Nadir", horizonColor.Evaluate(time));
+                skyboxMaterial.SetColor("_Zenith", skyColor.Evaluate(time));
+
+                skyboxMaterial.SetFloat("_CloudOpacity", cloudOpacity.Evaluate(time));
+                skyboxMaterial.SetFloat("_CloudColorIntensity", 1f);
+                skyboxMaterial.SetColor("_CloudColor", cloudColor);
+            }
+            
 
             RenderSettings.reflectionIntensity = reflectionsIntensityMultiplier.Evaluate(time);
             Shader.SetGlobalVector("_SunDirection", transform.forward);
             rainEffect.SetActive(false);
             timeSinceLastChange += Time.deltaTime;
 
-
-            if(timeSinceLastChange > 10f)
+            if(timeSinceLastChange > changeTime)
             {
-                if(Random.Range(0f, 1000f) == 1f)
-                {
-                    timeSinceLastChange = 0f;
-                    isStormy = true;
-                }
-                if(timeSinceLastChange > 10f)
-                {
-                    timeSinceLastChange = 0f;
-                    isStormy = true;
-                }
-                
+                timeSinceLastChange = 0f;
+                isStormy = true;
             }
-
         }
         else
         {
             if(timeSinceLastChange < 0.251f)
             {
-                skyboxMaterial.SetColor("_SunColor", Color.Lerp(skyColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
+                skyboxMaterial.SetColor("_SunColor", Color.Lerp(sunColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
                 sun.intensity = Mathf.Lerp(1f, 0.3f, timeSinceLastChange * 4);
                 skyboxMaterial.SetColor("_Horizon", Color.Lerp(horizonColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
-                skyboxMaterial.SetColor("_Nadir", Color.Lerp(skyColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
+                skyboxMaterial.SetColor("_Nadir", Color.Lerp(horizonColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
                 skyboxMaterial.SetColor("_Zenith", Color.Lerp(skyColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
 
-                skyboxMaterial.SetFloat("_CloudOpacity", Mathf.Lerp(cloudOpacity.Evaluate(time), 1f, timeSinceLastChange * 4));
+                skyboxMaterial.SetFloat("_CloudOpacity", Mathf.Lerp(cloudOpacity.Evaluate(time), 1.5f, timeSinceLastChange * 4));
                 skyboxMaterial.SetFloat("_CloudColorIntensity", Mathf.Lerp(1f, 10f, timeSinceLastChange * 4));
                 skyboxMaterial.SetColor("_CloudColor", Color.Lerp(cloudColor, stormCloudColor, timeSinceLastChange * 4));
             } 
@@ -140,13 +145,19 @@ public class DayNightCycle : MonoBehaviour
             rainEffect.SetActive(true);
             timeSinceLastChange += Time.deltaTime;
 
-            if(timeSinceLastChange > 3f)
+            if(timeSinceLastChange > 5f)
             {
                 timeSinceLastChange = 0f;
+                changeTime = Random.Range(30f, 150f);
                 isStormy = false;
             }
             
         }
         
+    }
+
+    void Ending()
+    {
+
     }
 }
