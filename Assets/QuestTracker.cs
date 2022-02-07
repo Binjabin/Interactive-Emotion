@@ -27,4 +27,8 @@ public class QuestTracker : MonoBehaviour
         trashRemaining = 5;
         collectedAllTrash = false;
     }
+    public void OpenBook()
+    {
+
+    }
 }

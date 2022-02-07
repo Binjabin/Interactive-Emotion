@@ -40,6 +40,8 @@ public class DayNightCycle : MonoBehaviour
 
     float changeTime;
 
+    [SerializeField] Material grassMaterial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +49,7 @@ public class DayNightCycle : MonoBehaviour
         time = startTime;
         timeSinceLastChange = 0.251f;
         isStormy = false;
-        changeTime = Random.Range(30f, 150f);
+        changeTime = Random.Range(10f, 15f);
 
         skyboxMaterial.SetColor("_SunColor",  skyColor.Evaluate(0f));
         sun.intensity = 0.3f;
@@ -55,6 +57,7 @@ public class DayNightCycle : MonoBehaviour
         skyboxMaterial.SetColor("_Zenith", skyColor.Evaluate(0f));
 
         skyboxMaterial.SetFloat("_CloudOpacity", cloudOpacity.Evaluate(0f));
+        skyboxMaterial.SetFloat("_StarOpacity", starOpacity.Evaluate(0f));
         skyboxMaterial.SetFloat("_CloudColorIntensity", 1f);
         skyboxMaterial.SetColor("_CloudColor", cloudColor);
     }
@@ -62,6 +65,7 @@ public class DayNightCycle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        skyboxMaterial.SetFloat("_StarOpacity", starOpacity.Evaluate(0f));
         //time loop
         time += timeRate * Time.deltaTime;
         if(time >= 1.0f)
@@ -85,6 +89,9 @@ public class DayNightCycle : MonoBehaviour
             sun.intensity = sunIntensity.Evaluate(time);
             moon.intensity = moonIntensity.Evaluate(time);
             sun.color = sunColor.Evaluate(time);
+            grassMaterial.SetFloat("_WindSpeed", 30f);
+            grassMaterial.SetFloat("_WindStrength", 0.1f);
+
 
             //color;
             
@@ -127,6 +134,10 @@ public class DayNightCycle : MonoBehaviour
         }
         else
         {
+
+            grassMaterial.SetFloat("_WindSpeed", 150f);
+            grassMaterial.SetFloat("_WindStrength", 0.2f);
+
             if(timeSinceLastChange < 0.251f)
             {
                 skyboxMaterial.SetColor("_SunColor", Color.Lerp(sunColor.Evaluate(time), stormSkyColor, timeSinceLastChange * 4));
