@@ -48,6 +48,9 @@ public class OpeningSequence : MonoBehaviour
         yield return new WaitForSeconds(poemPlayer.clip.length + 1);
         StartCoroutine(ColorFade(false));
 
+        yield return new WaitForSeconds(1f);
+        FindObjectOfType<PlayerLook>().Unfocus();
+        FindObjectOfType<PlayerController>().UnlockMovement();
         poemPlayer.clip = poem2;
         poemPlayer.Play();
         yield return new WaitForSeconds(poemPlayer.clip.length + 1);
@@ -71,8 +74,7 @@ public class OpeningSequence : MonoBehaviour
         tunePlayer.volume = 0.4f;
         tunePlayer.Play();
 
-        FindObjectOfType<PlayerLook>().Unfocus();
-        FindObjectOfType<PlayerController>().UnlockMovement();
+        
     }
 
     // Update is called once per frame

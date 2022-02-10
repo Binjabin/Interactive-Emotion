@@ -27,13 +27,12 @@ Material:
         m_Texture: {fileID: 2800000, guid: ca0d6684d25dcda4f9cec5b2bb7c18ef, type: 3}
         m_Scale: {x: 10000, y: 10000}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _DepthMaxDistance: 1
-    - _FoamMaxDistance: 5
+    - _FoamMaxDistance: 1
     - _FoamMinDistance: 0.001
     - _SurfaceDistortionAmount: 0.75
-    - _SurfaceNoiseCutoff: 0.75
+    - _SurfaceNoiseCutoff: 0.7
     m_Colors:
     - _DepthGradientDeep: {r: 0, g: 0.35193157, b: 1, a: 0.78431374}
     - _DepthGradientShallow: {r: 0.325, g: 0.807, b: 0.971, a: 0.49019608}

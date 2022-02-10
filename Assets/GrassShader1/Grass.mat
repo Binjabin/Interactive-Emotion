@@ -19,7 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Ints: []
     m_Floats:
     - _AmbientStrength: 0.3
     - _BladeCurve: 2
