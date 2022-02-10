@@ -43,6 +43,7 @@ public class DialogueSystem : MonoBehaviour
         currentNPC = dialogue.gameObject.GetComponent<Interactible>();
         inDialogue = true;
         FindObjectOfType<PlayerLook>().Focus(dialogue.transform);
+        FindObjectOfType<PlayerController>().LockMovement();
 
         foreach (string sentence in dialogue.sentences)
         {
@@ -78,5 +79,6 @@ public class DialogueSystem : MonoBehaviour
     {
         inDialogue = false;
         FindObjectOfType<PlayerLook>().Unfocus();
+        FindObjectOfType<PlayerController>().UnlockMovement();
     }
 }

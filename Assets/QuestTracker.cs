@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestTracker : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class QuestTracker : MonoBehaviour
     }
     public void OpenBook()
     {
-
+        
     }
+    
 }

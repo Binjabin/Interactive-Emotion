@@ -151,12 +151,20 @@ public class PlayerController : MonoBehaviour
             desiredJump = false;
         }
         rigidbody.velocity = currentVelocity;
-        movementEnabled = !FindObjectOfType<DialogueSystem>().inDialogue;
+
 
         ClearState();
     }
 
+    public void LockMovement()
+    {
+        movementEnabled = false;
+    }
 
+    public void UnlockMovement()
+    {
+        movementEnabled = true;
+    }
 
     void Jump()
     {
