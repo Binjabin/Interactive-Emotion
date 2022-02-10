@@ -33,6 +33,7 @@ public class OpeningSequence : MonoBehaviour
         FindObjectOfType<PlayerController>().LockMovement();
         openingBlocker.SetActive(true);
         tunePlayer.clip = intenseSoundtrack;
+        tunePlayer.volume = 0.2f;
         tunePlayer.Play();
 
         splashMaterial = splashText.GetComponent<CanvasGroup>();
@@ -66,6 +67,8 @@ public class OpeningSequence : MonoBehaviour
         yield return new WaitForSeconds(poemPlayer.clip.length + 1);
 
         tunePlayer.clip = calmSoundtrack;
+
+        tunePlayer.volume = 0.4f;
         tunePlayer.Play();
 
         FindObjectOfType<PlayerLook>().Unfocus();

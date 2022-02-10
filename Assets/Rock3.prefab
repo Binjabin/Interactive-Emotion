@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9220370457327724272}
   - component: {fileID: 7611127772018876438}
   - component: {fileID: 8905391186673575133}
+  - component: {fileID: -423499084735775255}
   m_Layer: 0
   m_Name: Rock3
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16b3adfcac362d56398038b053e636a6, type: 2}
+  - {fileID: 2100000, guid: c6de805b262f01c3db89150b7d0012fb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-423499084735775255
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202567199208101235}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3983063591393173388, guid: 456e945d885dfcc4a94eaf89a5976781, type: 3}
