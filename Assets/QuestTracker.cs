@@ -2,22 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class QuestTracker : MonoBehaviour
 {
     float appleCount;
-    float trashRemaining;
+    float trashCleaned;
 
-    bool collectedAllTrash;
+    public bool collectedAllTrash;
+    public bool collectedAllApple;
+    public bool collectedAllRing;
+
+    public bool appleQuestDone = false;
+    public bool ringQuestDone = false;
+    public bool trashQuestDone = false;
+
+
     
     public void GainApple()
     {
         appleCount++;
+        if(appleCount = 5)
+        {
+            collectedAllApple = true;
+        }
     }
     public void CleanTrash()
     {
-        trashRemaining -= 1;
-        if(trashRemaining < 1)
+        trashCleaned++;
+        if(trashCleaned = 3)
         {
             collectedAllTrash = true;
         }
@@ -25,12 +38,12 @@ public class QuestTracker : MonoBehaviour
     void Start()
     {
         appleCount = 0;
-        trashRemaining = 5;
+        trashCleaned = 0;
         collectedAllTrash = false;
     }
-    public void OpenBook()
+    public void GainRing()
     {
-        
+        collectedAllRing = true;
     }
     
 }
