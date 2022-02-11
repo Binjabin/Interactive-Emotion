@@ -115,6 +115,7 @@ public class OpeningSequence : MonoBehaviour
     IEnumerator End()
     {
         Debug.Log("end");
+        tunePlayer.Stop();
         rumblePlayer.Play();
         yield return new WaitForSeconds(rumblePlayer.clip.length - 1);
         rumblePlayer.Stop();

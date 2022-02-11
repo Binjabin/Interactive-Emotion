@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4509823278039718371
+--- !u!114 &-3369239385155352570
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skybox
-  m_Shader: {fileID: -6465566751694194690, guid: 97ed4b08e156cc4c2bebef43cb2e49d3, type: 3}
+  m_Name: Lamp
+  m_Shader: {fileID: -6465566751694194690, guid: a17fca1a869c32707a31c27fbdc884b9, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -32,12 +32,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _CloudTexture:
-        m_Texture: {fileID: 2800000, guid: 8fd51d219ce5978b886ff9f355cd7cf9, type: 3}
+    - _SampleTexture2D_6381861fb2dd4568a588eadd735a776d_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b7b0b64cfa7af2e7b953f29072e0d77e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_e546f636594e49a7b851e89b233a9117_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 3345abaeeb7def1fd8c274ea9e045054, type: 3}
+    - _SampleTexture2D_db1b95c85d2c475e820a171fd3c1e93d_Texture_1:
+        m_Texture: {fileID: 2800000, guid: b7b0b64cfa7af2e7b953f29072e0d77e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -54,23 +54,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CloudColorIntensity: 1
-    - _CloudOpacity: 0.2
-    - _FadePower: 1.3
-    - _NadirBlendPower: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _StarOpacity: 0.000053831434
-    - _SunMaskSize: 0
-    - _SunSize: 0.1
-    - _ZenithBlendPower: 0.6
     m_Colors:
-    - _Animation_Speed: {r: 0.005, g: 0.005, b: 0, a: 0}
-    - _CloudColor: {r: 1, g: 1, b: 1, a: 0}
-    - _CloudScale: {r: 0.08, g: 0.08, b: 0, a: 0}
-    - _Horizon: {r: 1, g: 0.17791812, b: 0, a: 1}
-    - _Nadir: {r: 1, g: 0.17791812, b: 0, a: 1}
-    - _SunColor: {r: 1, g: 0.6102481, b: 0.0689895, a: 1}
-    - _SunDirecrtion: {r: 0.5, g: 0.5, b: -0.5, a: 0}
-    - _Zenith: {r: 0.70917356, g: 0.43781227, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.8391529, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -15,10 +15,6 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] Gradient sunColor;
     [SerializeField] AnimationCurve sunIntensity;
 
-    [Header("Moon")]
-    [SerializeField] Light moon;
-    [SerializeField] Gradient moonColor;
-    [SerializeField] AnimationCurve moonIntensity;
 
     [Header("Other Lighting")]
     [SerializeField] AnimationCurve lightingIntensityMultiplier;
@@ -96,7 +92,6 @@ public class DayNightCycle : MonoBehaviour
         }
 
         sun.transform.eulerAngles = new Vector3((time * 500f * 0.375f) - 3.75f, 0, 0);
-        moon.transform.eulerAngles = (time) * noon * 2.0f;
 
         
 
@@ -107,7 +102,6 @@ public class DayNightCycle : MonoBehaviour
 
             //light intensity;
             sun.intensity = sunIntensity.Evaluate(time);
-            moon.intensity = moonIntensity.Evaluate(time);
             sun.color = sunColor.Evaluate(time);
             grassMaterial.SetFloat("_WindSpeed", 30f);
             grassMaterial.SetFloat("_WindStrength", 0.1f);

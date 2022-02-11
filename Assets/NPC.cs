@@ -25,8 +25,10 @@ public class NPC : Interactible
     {
         
         dialogueSystem = FindObjectOfType<DialogueSystem>();
-        if(!(isApple || isRing || isTrash))
+        Debug.Log(isApple);
+        if(isApple == false && isRing == false && isTrash == false)
         {
+            Debug.Log("eee");
             if(!dialogueSystem.inDialogue)
             {
                 dialogueSystem.StartDialogue(GetComponent<Dialogue>());
@@ -36,14 +38,16 @@ public class NPC : Interactible
         {
             if(isApple)
             {
+                Debug.Log("aaa");
                 if(!isSpokenTo)
                 {
                     dialogueSystem.StartDialogue(firstDialog);
+                    FindObjectOfType<QuestTracker>().startedApple = true;
                 }
                 else if(FindObjectOfType<QuestTracker>().collectedAllApple)
                 {
                     dialogueSystem.StartDialogue(doneDialog);
-                    FindObjectOfType<QuestTracker>().appleQuestDone = true;
+                    QuestTracker.appleQuestDone = true;
                 }
                 else if(isSpokenTo)
                 {
@@ -55,11 +59,12 @@ public class NPC : Interactible
                 if(!isSpokenTo)
                 {
                     dialogueSystem.StartDialogue(firstDialog);
+                    FindObjectOfType<QuestTracker>().startedTrash = true;
                 }
                 else if(FindObjectOfType<QuestTracker>().collectedAllTrash)
                 {
                     dialogueSystem.StartDialogue(doneDialog);
-                    FindObjectOfType<QuestTracker>().trashQuestDone = true;
+                    QuestTracker.trashQuestDone = true;
                 }
                 else if(isSpokenTo)
                 {
@@ -71,11 +76,12 @@ public class NPC : Interactible
                 if(!isSpokenTo)
                 {
                     dialogueSystem.StartDialogue(firstDialog);
+                    FindObjectOfType<QuestTracker>().startedRing = true;
                 }
                 else if(FindObjectOfType<QuestTracker>().collectedAllRing)
                 {
                     dialogueSystem.StartDialogue(doneDialog);
-                    FindObjectOfType<QuestTracker>().ringQuestDone = true;
+                    QuestTracker.ringQuestDone = true;
                 }
                 else if(isSpokenTo)
                 {
@@ -84,8 +90,9 @@ public class NPC : Interactible
             }
 
         }
+        isSpokenTo = true;
 
         
     }
-    isSpokenTo = true;
+    
 }
