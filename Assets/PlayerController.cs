@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float glideSpeed;
     [SerializeField] float glideAcceleration;
     bool movementEnabled;
+    float timeSinceEnabled;
     // Start is called before the first frame update
 
     void OnValidate()
@@ -83,6 +84,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         DoSound();
+        if(movementEnabled)
+        {
+            timeSinceEnabled += Time.deltaTime;
+        }
+        else
+        {
+            timeSinceEnabled = 0f;
+        }
         xInput = Input.GetAxisRaw("Horizontal");
         zInput = Input.GetAxisRaw("Vertical");
         inputDirection = new Vector3(xInput, 0, zInput).normalized;
@@ -128,9 +137,13 @@ public class PlayerController : MonoBehaviour
         {
             AdjustVelocity();
             if (desiredJump)
-            {
+            {   
                 desiredJump = false;
-                Jump();
+                if(timeSinceEnabled > 0.1f)
+                {
+                    Jump();
+                }
+                
             }
             if (Input.GetButton("Jump") && rigidbody.velocity.y < -0.01 && glider && !OnGround)
             {

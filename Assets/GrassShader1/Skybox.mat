@@ -52,15 +52,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
     m_Floats:
     - _CloudColorIntensity: 1
-    - _CloudOpacity: 1.5
+    - _CloudOpacity: 0.2
     - _FadePower: 1.3
     - _NadirBlendPower: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _StarOpacity: 0.000051475254
+    - _StarOpacity: 0.000051405306
     - _SunMaskSize: 0
     - _SunSize: 0.1
     - _ZenithBlendPower: 0.6
@@ -68,9 +67,9 @@ Material:
     - _Animation_Speed: {r: 0.005, g: 0.005, b: 0, a: 0}
     - _CloudColor: {r: 1, g: 1, b: 1, a: 0}
     - _CloudScale: {r: 0.08, g: 0.08, b: 0, a: 0}
-    - _Horizon: {r: 1, g: 0.1041233, b: 0, a: 1}
-    - _Nadir: {r: 1, g: 0.1041233, b: 0, a: 1}
-    - _SunColor: {r: 1, g: 0.588851, b: 0.01787765, a: 1}
+    - _Horizon: {r: 1, g: 0.25781047, b: 0, a: 1}
+    - _Nadir: {r: 1, g: 0.25781047, b: 0, a: 1}
+    - _SunColor: {r: 1, g: 0.6334132, b: 0.12432463, a: 1}
     - _SunDirecrtion: {r: 0.5, g: 0.5, b: -0.5, a: 0}
-    - _Zenith: {r: 0.6240972, g: 0.36548063, b: 0, a: 1}
+    - _Zenith: {r: 0.80127966, g: 0.5161205, b: 0, a: 1}
   m_BuildTextureStacks: []
