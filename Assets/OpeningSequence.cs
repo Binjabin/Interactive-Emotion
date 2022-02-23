@@ -33,7 +33,7 @@ public class OpeningSequence : MonoBehaviour
         FindObjectOfType<PlayerController>().LockMovement();
         openingBlocker.SetActive(true);
         tunePlayer.clip = intenseSoundtrack;
-        tunePlayer.volume = 0.2f;
+        tunePlayer.volume = 0.4f;
         tunePlayer.Play();
 
         splashMaterial = splashText.GetComponent<CanvasGroup>();
@@ -63,12 +63,13 @@ public class OpeningSequence : MonoBehaviour
         poemPlayer.clip = poem4;
         poemPlayer.Play();
         FindObjectOfType<DayNightCycle>().GoStormy();
-        yield return new WaitForSeconds(poemPlayer.clip.length + 1);
-
+        yield return new WaitForSeconds(poemPlayer.clip.length);
+        yield return new WaitForSeconds(1);
         poemPlayer.clip = poem5;
         poemPlayer.Play();
-        yield return new WaitForSeconds(poemPlayer.clip.length + 1);
-
+        yield return new WaitForSeconds(poemPlayer.clip.length - 1f);
+        StartCoroutine(FadeOut(tunePlayer, 2f));
+        yield return new WaitForSeconds(2f);
         tunePlayer.clip = calmSoundtrack;
 
         tunePlayer.volume = 0.4f;
@@ -109,13 +110,13 @@ public class OpeningSequence : MonoBehaviour
     public void EndGame()
     {
         StartCoroutine(End());
-        Debug.Log("end");
     }
 
     IEnumerator End()
     {
         Debug.Log("end");
-        tunePlayer.Stop();
+        StartCoroutine(FadeOut(tunePlayer, 2f));
+        yield return new WaitForSeconds(2f);
         rumblePlayer.Play();
         yield return new WaitForSeconds(rumblePlayer.clip.length - 1);
         rumblePlayer.Stop();
@@ -125,18 +126,38 @@ public class OpeningSequence : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void EndTheme()
+    public IEnumerator EndTheme()
     {
+        StartCoroutine(FadeOut(tunePlayer, 2f));
+        yield return new WaitForSeconds(2f);
         tunePlayer.clip = endingSoundtrack;
+        tunePlayer.volume = 0.5f;
         tunePlayer.Play();
 
     }
     public void Storm()
     {
-        tunePlayer.volume = 0.04f;
+        if(tunePlayer.clip == calmSoundtrack)
+        {
+            tunePlayer.volume = 0.04f;
+        }
+        
     }
     public void Unstorm()
     {
         tunePlayer.volume = 0.5f;
+    }
+
+    public static IEnumerator FadeOut (AudioSource audioSource, float FadeTime) {
+        float startVolume = audioSource.volume;
+ 
+        while (audioSource.volume > 0) {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+ 
+            yield return null;
+        }
+ 
+        audioSource.Stop ();
+        audioSource.volume = startVolume;
     }
 }

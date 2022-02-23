@@ -78,7 +78,7 @@ public class DayNightCycle : MonoBehaviour
         {
             if(!playedEndingTheme)
             {
-                FindObjectOfType<OpeningSequence>().EndTheme();
+                StartCoroutine(FindObjectOfType<OpeningSequence>().EndTheme());
                 playedEndingTheme = true;
             }
         }

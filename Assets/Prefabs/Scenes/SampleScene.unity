@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1817336756}
-  m_IndirectSpecularColor: {r: 0.944274, g: 0.37139407, b: 0.035457432, a: 1}
+  m_IndirectSpecularColor: {r: 0.014894416, g: 0.014894416, b: 0.014894416, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2692,13 +2692,13 @@ MonoBehaviour:
   poem3: {fileID: 8300000, guid: 9cd42dfa5e1379c88913f481d1305b8d, type: 3}
   poem4: {fileID: 8300000, guid: 7c1a435ed9cb910d7b09fb1b6b0c261c, type: 3}
   poem5: {fileID: 8300000, guid: 4cb78118e22c8fc9ea5c981d918c9360, type: 3}
-  intenseSoundtrack: {fileID: 8300000, guid: 620cc651ce52a33c29c0537ef5131b04, type: 3}
+  intenseSoundtrack: {fileID: 8300000, guid: 000cfca75e67ed149ad7ba1ec832b286, type: 3}
   calmSoundtrack: {fileID: 8300000, guid: f94afa33342f8a128b934be6876c647a, type: 3}
   endingSoundtrack: {fileID: 8300000, guid: 3511b2bae2c44321a8dc075d16975a08, type: 3}
   poemPlayer: {fileID: 231116996}
   tunePlayer: {fileID: 231117000}
   rumblePlayer: {fileID: 231116999}
-  lightningPlayer: {fileID: 231117000}
+  lightningPlayer: {fileID: 1456182239}
   fadeSpeed: 1
   openingBlocker: {fileID: 838568949}
   initialFocus: {fileID: 231116995}
@@ -2905,10 +2905,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b45cf9c28765ee3668eff7bac9b5b2ac, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -24361,7 +24361,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 73f58867a88b0127eb6636dfcee2592c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e1cbc4a7d1c04d4419b01c235acb876e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.6
   m_Pitch: 1
