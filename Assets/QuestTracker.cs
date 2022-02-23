@@ -20,6 +20,7 @@ public class QuestTracker : MonoBehaviour
     public static bool appleQuestDone = false;
     public static bool ringQuestDone = false;
     public static bool trashQuestDone = false;
+    public static bool playedGame;
 
     [SerializeField] TextMeshProUGUI appleText;
     [SerializeField] TextMeshProUGUI trashText;
@@ -28,7 +29,9 @@ public class QuestTracker : MonoBehaviour
     [SerializeField] GameObject appleGlobe;
     [SerializeField] GameObject trashGlobe;
     [SerializeField] GameObject ringGlobe;
+    [SerializeField] GameObject book;
     [SerializeField] bool gameScene;
+    [SerializeField] GameObject blackOut;
 
     private void Update()
     {
@@ -120,10 +123,48 @@ public class QuestTracker : MonoBehaviour
         startedTrash = false;
         startedApple = false;
         startedRing = false;
+
+        if(!gameScene)
+        {
+            if(playedGame)
+            {
+                StartCoroutine(Credits());
+                blackOut.GetComponent<CanvasGroup>().alpha = 1f;
+            }
+            else
+            {
+                blackOut.GetComponent<CanvasGroup>().alpha = 0f;
+            }
+        }
+        else
+        {
+            playedGame = true;
+        }
     }
     public void GainRing()
     {
         collectedAllRing = true;
+    }
+
+    IEnumerator Credits()
+    {
+        float elapsedTime;
+        book.layer = 0;
+        elapsedTime = 2f;
+        while (elapsedTime > 0f)
+        {
+            blackOut.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(0f, 1f, (elapsedTime / 2f));
+            elapsedTime -= Time.deltaTime;
+            yield return null;
+        }      
+        yield return new WaitForSeconds(10f);
+        elapsedTime = 0f;
+        while (elapsedTime < 2f)
+        {
+            blackOut.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(0f, 1f, (elapsedTime / 2f));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
     
 }
