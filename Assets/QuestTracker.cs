@@ -32,6 +32,7 @@ public class QuestTracker : MonoBehaviour
     [SerializeField] GameObject book;
     [SerializeField] bool gameScene;
     [SerializeField] GameObject blackOut;
+    [SerializeField] GameObject credits;
 
     private void Update()
     {
@@ -133,7 +134,8 @@ public class QuestTracker : MonoBehaviour
             }
             else
             {
-                blackOut.GetComponent<CanvasGroup>().alpha = 0f;
+                StartCoroutine(FadeIn());
+                blackOut.GetComponent<CanvasGroup>().alpha = 1f;
             }
         }
         else
@@ -146,6 +148,18 @@ public class QuestTracker : MonoBehaviour
         collectedAllRing = true;
     }
 
+    IEnumerator FadeIn()
+    {
+        float elapsedTime;
+        elapsedTime = 5f;
+        yield return new WaitForSeconds(3f);
+        while (elapsedTime > 0f)
+        {
+            blackOut.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(0f, 1f, (elapsedTime / 5f));
+            elapsedTime -= Time.deltaTime;
+            yield return null;
+        }      
+    }
     IEnumerator Credits()
     {
         float elapsedTime;
@@ -165,6 +179,21 @@ public class QuestTracker : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        elapsedTime = 0f;
+        while (elapsedTime < 2f)
+        {
+            credits.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(0f, 1f, (elapsedTime / 2f));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        while (elapsedTime < 60f)
+        {
+            credits.GetComponent<RectTransform>().position += new Vector3(0, (Time.deltaTime * 150), 0);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        Application.Quit();
     }
     
 }
