@@ -24,6 +24,7 @@ public class PlayerLook : MonoBehaviour
         if(angle < 60f || angle > 300f)
         {
             return angle;
+            
         }
         else if(angle <= 180f)
         {
@@ -73,8 +74,11 @@ public class PlayerLook : MonoBehaviour
             velocity = new Vector2(Mathf.MoveTowards(velocity.x, wantedVelocity.x, acceleration.x * Time.deltaTime), Mathf.MoveTowards(velocity.y, wantedVelocity.y, acceleration.y * Time.deltaTime));
             
             rotation += velocity * Time.deltaTime;
-            rotation.x = ClampVerticalAngle(rotation.x);
+            
             transform.localEulerAngles = new Vector3(rotation.x, rotation.y, 0);
+            rotation.x = ClampVerticalAngle(transform.localEulerAngles.x);
+            transform.localEulerAngles = new Vector3(rotation.x, rotation.y, 0);
+            
         }
         else
         {
