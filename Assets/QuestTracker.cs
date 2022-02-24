@@ -42,14 +42,15 @@ public class QuestTracker : MonoBehaviour
             {
                 trashText.text = "Clean up 3 bags of rubbish (" + trashCleaned + "/3)";
             }
-            else if(startedTrash == true && collectedAllTrash == true)
-            {
-                trashText.text = "Speak to Imran again!";
-            }
             else if(trashQuestDone == true)
             {
                 trashText.text =  "Trash cleaned up!";
             }
+            else if(startedTrash == true && collectedAllTrash == true)
+            {
+                trashText.text = "Speak to Imran again!";
+            }
+            
             else
             {
                 trashText.text =  "Speak to Imran";
@@ -59,13 +60,13 @@ public class QuestTracker : MonoBehaviour
             {
                 appleText.text = "Collect 5 apples for Granny's pie. (" + appleCount + "/5)";
             }
-            else if(startedApple == true && collectedAllApple == true)
-            {
-                appleText.text = "Bring the 5 apples back to granny.";
-            }
             else if(appleQuestDone == true)
             {
                 appleText.text =  "Apple's given!";
+            }
+            else if(startedApple == true && collectedAllApple == true)
+            {
+                appleText.text = "Bring the 5 apples back to granny.";
             }
             else
             {
@@ -76,14 +77,15 @@ public class QuestTracker : MonoBehaviour
             {
                 ringText.text = "Find Dr Morton's ring";
             }
-            else if(startedRing == true && collectedAllApple == true)
-            {
-                ringText.text = "Return the ring to Dr Morton";
-            }
             else if(ringQuestDone == true)
             {
                 ringText.text =  "Ring returned!";
             }
+            else if(startedRing == true && collectedAllApple == true)
+            {
+                ringText.text = "Return the ring to Dr Morton";
+            }
+
             else
             {
                 ringText.text =  "Speak to Dr Morton";
@@ -129,11 +131,13 @@ public class QuestTracker : MonoBehaviour
         {
             if(playedGame)
             {
+                FindObjectOfType<PlayerLook>().Focus(book.transform);
                 StartCoroutine(Credits());
                 blackOut.GetComponent<CanvasGroup>().alpha = 1f;
             }
             else
             {
+                FindObjectOfType<PlayerLook>().Focus(book.transform);
                 StartCoroutine(FadeIn());
                 blackOut.GetComponent<CanvasGroup>().alpha = 1f;
             }
@@ -153,12 +157,14 @@ public class QuestTracker : MonoBehaviour
         float elapsedTime;
         elapsedTime = 5f;
         yield return new WaitForSeconds(3f);
+        FindObjectOfType<PlayerLook>().Unfocus();
         while (elapsedTime > 0f)
         {
             blackOut.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(0f, 1f, (elapsedTime / 5f));
             elapsedTime -= Time.deltaTime;
             yield return null;
-        }      
+        }
+        
     }
     IEnumerator Credits()
     {
