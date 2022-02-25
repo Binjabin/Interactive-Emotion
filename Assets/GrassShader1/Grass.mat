@@ -19,21 +19,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
-    m_Ints: []
     m_Floats:
     - _AmbientStrength: 0.3
     - _BladeCurve: 2
     - _BladeForward: 0.38
     - _GrassHeight: 1.4
     - _GrassWidth: 0.08
-    - _MaxDist: 60
-    - _MinDist: 40
+    - _MaxDist: 400
+    - _MinDist: 100
     - _Rad: 0.6
     - _Radius: 1.2
     - _RandomHeight: 0.25
     - _Strength: 5
-    - _WindSpeed: 30
-    - _WindStrength: 0.1
+    - _WindSpeed: 150
+    - _WindStrength: 0.2
     m_Colors:
     - _BottomColor: {r: 0.2988163, g: 0.6333849, b: 0.745283, a: 1}
     - _TopColor: {r: 1, g: 1, b: 1, a: 1}
